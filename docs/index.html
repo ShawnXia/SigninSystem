@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <title>Student Signature System</title>
+  <style>
+    body {
+      text-align: center;
+      background-color: #eee;
+    }
+    canvas {
+      border: 1px solid #ccc;
+      cursor: crosshair;
+    }
+  </style>
+</head>
+<body>
+  <h1>Student Signature System</h1>
+  <canvas id="c" width="800" height="450"></canvas>
+  <div>
+    <button onclick="sdb.clear()">reset</button>
+    /
+    <button onclick="sdb.fill('#fff')">white board</button>
+    <button onclick="sdb.fill('#000')">black board</button>
+  </div>
+
+  <script src="./simple-drawing-board.js"></script>
+  <script src="./main.js"></script>
+</body>
+</html>
