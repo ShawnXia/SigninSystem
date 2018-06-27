@@ -4,7 +4,7 @@ var app = express();
 app.use(express.static('docs'));
  
 app.get('/signature', function (req, res) {
-   res.sendFile( __dirname + "/docs/index.html" );
+   res.sendFile( __dirname + "/docs/sign.html" );
 })
  
 app.get('/process_get', function (req, res) {

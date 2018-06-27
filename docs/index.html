@@ -6,30 +6,38 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
   <title>Student Signature System</title>
   <style>
-    body {
-      text-align: center;
-      background-color: #eee;
-    }
-    canvas {
-      border: 1px solid #ccc;
-      cursor: crosshair;
+    .wrapper {
       position: relative;
-      width: 80%;
-      height: 80%;
+      width: 400px;
+      height: 200px;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    .signature-pad {
+      border: 1px solid #ccc;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width:400px;
+      height:200px;
     }
   </style>
 </head>
 <body>
-  <h1>Student Signature System</h1>
-  <canvas id="c"></canvas>
-  <div>
-    <button onclick="sdb.clear()">reset</button>
-    /
-    <button onclick="sdb.fill('#fff')">white board</button>
-    <button onclick="sdb.fill('#000')">black board</button>
-  </div>
+<h1>
+  Draw over image
+</h1>
+<div class="wrapper">
+  <canvas id="signature-pad" class="signature-pad" width=400 height=200></canvas>
+</div>
+<div>
+  <button id="save">Save</button>
+  <button id="clear">Clear</button>
+</div>
 
-  <script src="./simple-drawing-board.js"></script>
-  <script src="./main.js"></script>
+<script src="./signature.js"></script>
 </body>
 </html>
