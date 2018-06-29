@@ -98,25 +98,25 @@ savePNGButton.addEventListener("click", function (event) {
     alert("Please provide a signature first.");
   } else {
     var dataURL = signaturePad.toDataURL();
-    alert(dataURL);
+    console.log(signaturePad.toDataURL());
     download(dataURL, "signature.png");
   }
 });
 
-saveJPGButton.addEventListener("click", function (event) {
-  if (signaturePad.isEmpty()) {
-    alert("Please provide a signature first.");
-  } else {
-    var dataURL = signaturePad.toDataURL("image/jpeg");
-    download(dataURL, "signature.jpg");
-  }
-});
-
-saveSVGButton.addEventListener("click", function (event) {
-  if (signaturePad.isEmpty()) {
-    alert("Please provide a signature first.");
-  } else {
-    var dataURL = signaturePad.toDataURL('image/svg+xml');
-    download(dataURL, "signature.svg");
-  }
-});
+//saveJPGButton.addEventListener("click", function (event) {
+//  if (signaturePad.isEmpty()) {
+//    alert("Please provide a signature first.");
+//  } else {
+//    var dataURL = signaturePad.toDataURL("image/jpeg");
+//    download(dataURL, "signature.jpg");
+//  }
+//});
+//
+//saveSVGButton.addEventListener("click", function (event) {
+//  if (signaturePad.isEmpty()) {
+//    alert("Please provide a signature first.");
+//  } else {
+//    var dataURL = signaturePad.toDataURL('image/svg+xml');
+//    download(dataURL, "signature.svg");
+//  }
+//});
