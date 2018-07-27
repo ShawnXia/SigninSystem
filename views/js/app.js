@@ -2,7 +2,8 @@ var wrapper = document.getElementById("signature-pad");
 var clearButton = wrapper.querySelector("[data-action=clear]");
 var changeColorButton = wrapper.querySelector("[data-action=change-color]");
 var undoButton = wrapper.querySelector("[data-action=undo]");
-var savePNGButton = wrapper.querySelector("[data-action=save-png]");
+var saveSignInIMG = wrapper.querySelector("[data-action=sign-in]");
+var saveSignOutIMG = wrapper.querySelector("[data-action=sign-out]");
 var saveJPGButton = wrapper.querySelector("[data-action=save-jpg]");
 var saveSVGButton = wrapper.querySelector("[data-action=save-svg]");
 var canvas = wrapper.querySelector("canvas");
@@ -93,15 +94,83 @@ changeColorButton.addEventListener("click", function (event) {
   signaturePad.penColor = color;
 });
 
-savePNGButton.addEventListener("click", function (event) {
+saveSignInIMG.addEventListener("click", function (event) {
   if (signaturePad.isEmpty()) {
     alert("Please provide a signature first.");
   } else {
     var dataURL = signaturePad.toDataURL();
-    console.log(signaturePad.toDataURL());
-    download(dataURL, "signature.png");
+
+    const payload = {
+            userId:getCookieByName("username"),
+            signTime:new Date(),
+            signType:'Sign In',
+            img:signaturePad.toDataURL().toString(),
+            isDeleted: false,
+            isSupplement: false
+    };
+    var username = getCookieByName("username");
+    console.log(username);
+    userAction("POST","/sign/save",JSON.stringify(payload),(response) => {
+           var result = JSON.parse(response);
+           console.log(result);
+           if(result.insertSuccess){
+               alert("Save Successfully!");
+               window.location.replace("view/"+username);
+           }else{
+               alert("Save Failed!");
+           }
+    });
   }
 });
+
+saveSignOutIMG.addEventListener("click", function (event) {
+  if (signaturePad.isEmpty()) {
+    alert("Please provide a signature first.");
+  } else {
+    var dataURL = signaturePad.toDataURL();
+
+    const payload = {
+            userId:getCookieByName("username"),
+            signTime:new Date(),
+            signType:'Sign Out',
+            img:signaturePad.toDataURL().toString(),
+            isDeleted: false,
+            isSupplement: false
+    };
+    var username = getCookieByName("username");
+    console.log(username);
+    userAction("POST","/sign/save",JSON.stringify(payload),(response) => {
+           var result = JSON.parse(response);
+           console.log(result);
+           if(result.insertSuccess){
+               alert("Save Successfully!");
+               window.location.replace("view/"+username); 
+           }else{
+               alert("Save Failed!");
+           }
+    });
+  }
+});
+
+function userAction(method,uri,payload,callback) {
+    var xhttp = new XMLHttpRequest();
+    
+    xhttp.open(method, uri, true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(payload);
+    xhttp.onreadystatechange = function() {
+            if (this.readyState == 4) {
+                callback(this.responseText);
+            }
+            
+        };
+//    var response = JSON.parse(xhttp.responseText);
+}
+
+function getCookieByName(name) {
+   var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+   if (match) return match[2];
+ }
 
 //saveJPGButton.addEventListener("click", function (event) {
 //  if (signaturePad.isEmpty()) {
